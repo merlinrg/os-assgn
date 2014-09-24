@@ -45,7 +45,7 @@ int file_selecto(struct direct   *entry)                             /*function 
      ptr = rindex(entry->d_name, '.');
      if ((ptr != NULL) && ((strcmp(ptr, ".c") == 0) ||(strcmp(ptr, ".h") == 0) ||(strcmp(ptr, ".o") == 0) ))
 	return (TRUE);
-    else
+     else
 	return(FALSE);
 }
  
@@ -53,7 +53,7 @@ int file_selecto(struct direct   *entry)                             /*function 
   
 const char *get_perms(mode_t mode)                      /* mode type */
 {  
-  char ftype = '?';  
+       char ftype = '?';  
   
        if (S_ISREG(mode)) ftype = '-';                  /*checking the flags type */
        if (S_ISLNK(mode)) ftype = 'l';  
@@ -62,22 +62,22 @@ const char *get_perms(mode_t mode)                      /* mode type */
        if (S_ISCHR(mode)) ftype = 'c';  
        if (S_ISFIFO(mode)) ftype = '|';  
   
-  sprintf(perms_buff, "%c%c%c%c%c%c%c%c%c%c %c%c%c", ftype,  
-  mode & S_IRUSR ? 'r' : '-',                                           /* readable */
-  mode & S_IWUSR ? 'w' : '-',                                           /* writable */
-  mode & S_IXUSR ? 'x' : '-',                                           /* excutable */ 
-  mode & S_IRGRP ? 'r' : '-',                                           
-  mode & S_IWGRP ? 'w' : '-',  
-  mode & S_IXGRP ? 'x' : '-',  
-  mode & S_IROTH ? 'r' : '-',  
-  mode & S_IWOTH ? 'w' : '-',  
-  mode & S_IXOTH ? 'x' : '-',  
-  mode & S_ISUID ? 'U' : '-',                                           
-  mode & S_ISGID ? 'G' : '-',  
-  mode & S_ISVTX ? 'S' : '-');  
+       sprintf(perms_buff, "%c%c%c%c%c%c%c%c%c%c %c%c%c", ftype,  
+       mode & S_IRUSR ? 'r' : '-',                                           /* readable */
+       mode & S_IWUSR ? 'w' : '-',                                           /* writable */
+       mode & S_IXUSR ? 'x' : '-',                                           /* excutable */ 
+       mode & S_IRGRP ? 'r' : '-',                                           
+       mode & S_IWGRP ? 'w' : '-',  
+       mode & S_IXGRP ? 'x' : '-',  
+       mode & S_IROTH ? 'r' : '-',  
+       mode & S_IWOTH ? 'w' : '-',  
+       mode & S_IXOTH ? 'x' : '-',  
+       mode & S_ISUID ? 'U' : '-',                                           
+       mode & S_ISGID ? 'G' : '-',  
+       mode & S_ISVTX ? 'S' : '-');  
   
-  return (const char *)perms_buff;  
-}  
+       return (const char *)perms_buff;  
+}   
   
    
 static int  
@@ -98,24 +98,24 @@ int file_select(struct direct *entry)                                     /*sele
 
 int excecute_a()                                                            /* function for excecuting ls-a */
 {
-                int count,i;
-                struct direct **files;
+        int count,i;
+        struct direct **files;
 
-                if(!getcwd(pathname, sizeof(pathname)))
-                die("Error getting pathname\n");
+        if(!getcwd(pathname, sizeof(pathname)))
+        die("Error getting pathname\n");
 
-                printf("Current Working Directory = %s\n",pathname);
-                count = scandir(pathname, &files, file_select, alphasort);
+        printf("Current Working Directory = %s\n",pathname);
+        count = scandir(pathname, &files, file_select, alphasort);
 
                                                                             /* If no files found, make a non-selectable menu item */
-                if(count <= 0)
-                die("No files in this directory\n");
+        if(count <= 0)
+        die("No files in this directory\n");
     
-                printf("Number of files = %d\n",count);
-                for (i=1; i<count+1; ++i)
-                printf("%s\n ",files[i-1]->d_name);
-                printf("\n"); /* flush buffer */
-                exit(0);
+        printf("Number of files = %d\n",count);
+        for (i=1; i<count+1; ++i)
+        printf("%s\n ",files[i-1]->d_name);
+        printf("\n"); /* flush buffer */
+        exit(0);
         }
 
 int excecute_l()                                                          /* function for excecuting ls -l */
@@ -184,12 +184,12 @@ int excecute_lp()                                                          /* fu
         struct tm time;  
         char buf[1024];  
   
-      if(!getcwd(pathname, sizeof(pathname)))  
+        if(!getcwd(pathname, sizeof(pathname)))  
              die("Error getting pathnamen");  
   
-      count = scandir(pathname, &files, file_selecto, alphasort);  
+        count = scandir(pathname, &files, file_selecto, alphasort);  
   
-      if(count > 0)  
+        if(count > 0)  
            {  
                printf("total %d\n",count);  
   
