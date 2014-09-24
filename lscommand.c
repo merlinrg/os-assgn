@@ -18,7 +18,6 @@
 #include <stdint.h>  
 #include <fcntl.h>
 
-
 #define FALSE 0
 #define TRUE !FALSE
 
@@ -44,7 +43,7 @@ int file_selecto(struct direct   *entry)                             /*function 
  
 				                                                         
      ptr = rindex(entry->d_name, '.');
-    if ((ptr != NULL) && ((strcmp(ptr, ".c") == 0) ||(strcmp(ptr, ".h") == 0) ||(strcmp(ptr, ".o") == 0) ))
+     if ((ptr != NULL) && ((strcmp(ptr, ".c") == 0) ||(strcmp(ptr, ".h") == 0) ||(strcmp(ptr, ".o") == 0) ))
 	return (TRUE);
     else
 	return(FALSE);
@@ -120,34 +119,30 @@ int excecute_a()                                                            /* f
         }
 
 int excecute_l()                                                          /* function for excecuting ls -l */
-{             int count,i;  
-              struct direct **files;  
-              struct stat statbuf;  
-              char datestring[256];  
-              struct passwd pwent;  
-              struct passwd *pwentp;  
-              struct group grp;  
-              struct group *grpt;  
-              struct tm time;  
-              char buf[1024];  
+{             
+	int count,i;  
+        struct direct **files;  
+        struct stat statbuf;  
+        char datestring[256];  
+        struct passwd pwent;  
+        struct passwd *pwentp;  
+        struct group grp;  
+        struct group *grpt;  
+        struct tm time;  
+        char buf[1024];  
   
       
   
-      count = scandir(pathname, &files, file_selecto, alphasort);  
+        count = scandir(pathname, &files, file_selecto, alphasort);  
 
         
   
-      if(count > 0)  
+        if(count > 0)  
            {  
                printf("total %d\n",count);  
-  printf("pathname name is = %s\n" , pathname);
+               printf("pathname name is = %s\n" , pathname);
                   for (i=0; i<count; ++i)  
-                   {  
-                    // if (stat(files[i]->d_name, &statbuf) == 0)  
-                        // {  
-                                                                                            /* Print out type, permissions, and number of links. */  
-                           // printf("%10.10s", get_perms(statbuf.st_mode));                      /* File mode (type, perms) */       
-                           // printf(" %d", statbuf.st_nlink);                                     /* Number of links */
+                   {                                  
   
                     if (!getpwuid_r(statbuf.st_uid, &pwent, buf, sizeof(buf), &pwentp))  
                             printf(" %s", pwent.pw_name);  
@@ -169,26 +164,27 @@ int excecute_l()                                                          /* fun
                             printf(" %s %s\n", datestring, files[i]->d_name);  
                                                                            //}  
   
-                                      free (files[i]);  
-                                                                                    }  
+                            free (files[i]);  
+                     }  
   
-                                      free(files);  
-                                                                                                  }                                                                                               
-                                      exit(0);
-                                                                                                                }
-   int excecute_lp()                                                          /* function for excecuting ls -l */
-{             int count,i;  
-              struct direct **files;  
-              struct stat statbuf;  
-              char datestring[256];  
-              struct passwd pwent;  
-              struct passwd *pwentp;  
-              struct group grp;  
-              struct group *grpt;  
-              struct tm time;  
-              char buf[1024];  
+                            free(files);  
+           }                                                                                               
+                            exit(0);
+ }
+int excecute_lp()                                                          /* function for excecuting ls -l */
+{             
+	int count,i;  
+        struct direct **files;  
+        struct stat statbuf;  
+        char datestring[256];  
+        struct passwd pwent;  
+        struct passwd *pwentp;  
+        struct group grp;  
+        struct group *grpt;  
+        struct tm time;  
+        char buf[1024];  
   
-     if(!getcwd(pathname, sizeof(pathname)))  
+      if(!getcwd(pathname, sizeof(pathname)))  
              die("Error getting pathnamen");  
   
       count = scandir(pathname, &files, file_selecto, alphasort);  
@@ -223,37 +219,37 @@ int excecute_l()                                                          /* fun
                             strftime(datestring, sizeof(datestring), "%F %T", &time);  
   
                             printf(" %s %s\n", datestring, files[i]->d_name);  
-                                                                           }  
+                         }  
   
-                                      free (files[i]);  
-                                                                                    }  
+                            free (files[i]);  
+                   }  
   
-                                      free(files);  
-                                                                                                  }                                                                                               
-                                      exit(0);
-                                                                                                                }
+                            free(files);  
+           }                                                                                               
+                            exit(0);
+}
    
 
 int execute_ls()
 {
-int count,i;
-    struct direct **files;
+    	int count,i;
+    	struct direct **files;
 
-    if(!getcwd(pathname, sizeof(pathname)))                                      
+    	if(!getcwd(pathname, sizeof(pathname)))                                      
         die("Error getting pathname\n");
 
-    printf("Current Working Directory = %s\n",pathname);
-    count = scandir(pathname, &files,file_selecto,  alphasort);
+    	printf("Current Working Directory = %s\n",pathname);
+    	count = scandir(pathname, &files,file_selecto,  alphasort);
 
-    /* If no files found, make a non-selectable menu item */
-    if(count <= 0)
-      die("No files in this directory\n");
+    	/* If no files found, make a non-selectable menu item */
+    	if(count <= 0)
+        die("No files in this directory\n");
     
-    printf("Number of files = %d\n",count);
-    for (i=1; i<count+1; ++i)                                                  /*print the files in the current directory */
+    	printf("Number of files = %d\n",count);
+    	for (i=1; i<count+1; ++i)                                                  /*print the files in the current directory */
         printf("%s\n  ",files[i-1]->d_name);
-    printf("\n"); /* flush buffer */
-             return 0;
+    	printf("\n"); /* flush buffer */
+        return 0;
 
 }
 
@@ -266,23 +262,24 @@ int main(int argc, char* argv[])
                   if (!strcmp(argv[1], "-a"))                                       /* if user selict "-a" */
                        {                                                    
                           excecute_a();
-                                     }
+                       }
 
                  if (!strcmp(argv[1], "-l"))                                        /* if user selict "-l" */
                        {
                           excecute_lp();                                    
-                                    }
+                       }
                                          }
                  if (argc == 3)
                        {
                            strcpy(pathname, argv[2]);
-                            excecute_l();         }
+                            excecute_l(); 
+                       }
                                                  
 
  
-    if (argc == 1)                                    /*if there is no argument is specify*/
+      if (argc == 1)                                    /*if there is no argument is specify*/
   
-       execute_ls();
-    }
+      execute_ls();
+}
     
                  
