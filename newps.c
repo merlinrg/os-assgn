@@ -48,8 +48,8 @@ void pidaux ()
   dirp = opendir ("/proc/");
   if (dirp == NULL)
   {
-    perror ("Fail");
-    exit(0);
+         perror ("Fail");
+         exit(0);
   } 
   strcpy(path,"/proc/");
   strcat(path,"uptime");
