@@ -7,9 +7,6 @@
 #include <pwd.h>
 #include <unistd.h>
  
-/* checks if the string is purely an integer
- * we can do it with `strtol' also
- */
 int check_if_number (char *str)
 {
   int i;
@@ -110,7 +107,7 @@ void pidaux ()
                 getline(&line,&len,fp);
 		getline(&line,&len,fp);
 		sscanf(line,"VmRSS:     %llu kB",&memory_rss);
-		//fprintf(stdout,"VmRSS::%llu",memory_rss);
+		
 	}
 	else
 	{
@@ -146,11 +143,6 @@ void pidaux ()
 	strcat (path, entry->d_name);
 	strcat (path, "/comm");
 	 
-      	/* A file may not exist, it may have been removed.
-       	* dut to termination of the process. Actually we need to
-       	* make sure the error is actually file does not exist to
-       	* be accurate.
-       	*/
       	fp = fopen (path, "r");
       	if (fp != NULL)
       	{
