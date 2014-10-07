@@ -72,7 +72,7 @@ void pidaux ()
 	getline(&line,&len,fp);
 	sscanf(line,"MemTotal:        %llu kB",&total_memory);
   }	
-  //fprintf(stdout,"Val:%llu",total_memory);
+
   while ((entry = readdir (dirp)) != NULL)
   {
     if (check_if_number (entry->d_name))
@@ -83,7 +83,7 @@ void pidaux ()
 	unsigned long long memory_rss;
 	fp=fopen(path,"r");
 	unsigned long long vmsize;
-	//fprintf(stdout,"%s ",entry->d_name);
+
 	if(fp!=NULL)
 	{
 		vmsize=0;
@@ -117,7 +117,6 @@ void pidaux ()
 	strcpy(path,"/proc/");
 	strcat(path,entry->d_name);
 	strcat(path,"/stat");
-	//getline(&line,&len,fp);
 	fp=fopen(path,"r");
 	getline(&line,&len,fp);
 	char comm[10],state;
